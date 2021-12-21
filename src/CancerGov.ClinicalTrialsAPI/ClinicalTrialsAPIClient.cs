@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
@@ -93,15 +93,29 @@ namespace CancerGov.ClinicalTrialsAPI
         /// Retrieve the details of a list of trials.
         /// </summary>
         /// <param name="trialIDs">The set of trials to retrieve</param>
+        /// <param name="from">Offset into the set of possible returns.</param>
+        /// <param name="size">Number of results to retrieve.</param>
         /// <returns>An object containing an array of trial details.</returns>
-#pragma warning disable CS1998
         async public Task<JObject> GetMultipleTrials(
-            IEnumerable<string> trialIDs
+            IEnumerable<string> trialIDs,
+            int size = 10,
+            int from = 0
         )
         {
-            throw new NotImplementedException();
+            size = size > 0 ? size : 10;
+            from = from > 0 ? from : 0;
+
+            JObject requestBody = new JObject();
+            requestBody.Add(new JProperty("size", size));
+            requestBody.Add(new JProperty("from", from));
+            requestBody.Add(new JProperty("nci_id", trialIDs));
+
+            HttpContent httpContent = await ReturnPostRespContent("trials", requestBody);
+            string responseBody = await httpContent.ReadAsStringAsync();
+            JObject result = JObject.Parse(responseBody);
+
+            return result;
         }
-#pragma warning restore
 
         /// <summary>
         /// Gets a collection of disease details from the API.
@@ -181,27 +195,28 @@ namespace CancerGov.ClinicalTrialsAPI
         /// <returns>HTTP response content</returns>
         async protected Task<HttpContent> ReturnPostRespContent(String path, JObject requestBody)
         {
-            HttpResponseMessage response = null;
-            HttpContent content = null;
-
-            _client.DefaultRequestHeaders.Accept.Clear();
-            _client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
-
-            //We want this to be synchronus, so call Result right away.
             //NOTE: When using HttpClient.BaseAddress as we are, the path must not have a preceeding slash
-            response = await _client.PostAsync(path, new StringContent(requestBody.ToString(), Encoding.UTF8, "application/json"));
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, path);
+            request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue(JSON_CONTENT));
+
+            request.Content = new StringContent(requestBody.ToString(), Encoding.UTF8);
+
+            HttpContent responseContent = null;
+            HttpResponseMessage response = await _client.SendAsync(request);
             if (response.IsSuccessStatusCode)
             {
-                content = response.Content;
+                responseContent = response.Content;
             }
             else
             {
-                //TODO: Add more checking here if the respone does not actually have any content
-                string errorMessage = "Response: " + response.Content.ReadAsStringAsync().Result + "\nAPI path: " + this._client.BaseAddress.ToString() + path;
-                throw new Exception(errorMessage);
+                string errorResponse = null;
+                if (response.Content != null)
+                    errorResponse = await response.Content.ReadAsStringAsync();
+                string errorMessage = $"Response: '{errorResponse}' \nAPI path: " + this._client.BaseAddress.ToString() + path;
+                throw new APIServerErrorException(errorMessage);
             }
 
-            return content;
+            return responseContent;
         }
 
 

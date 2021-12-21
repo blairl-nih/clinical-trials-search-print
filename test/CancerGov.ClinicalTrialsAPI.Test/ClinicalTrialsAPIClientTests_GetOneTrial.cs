@@ -94,7 +94,7 @@ namespace CancerGov.ClinicalTrialsAPI.Test
         {
             string trialID = "NCT0999999999";
 
-            string trialFilePath = TestFileTools.GetPathToTestFile(typeof(ClinicalTrialsAPIClientTests_GetOneTrial), Path.Combine(new string[] { "TrialExamples", "NotFound.json" }));
+            string trialFilePath = TestFileTools.GetPathToTestFile(typeof(ClinicalTrialsAPIClientTests_GetOneTrial), Path.Combine(new string[] { "TrialExamples", "NotFound-GetOne.json" }));
 
             HttpClient mockedClient = HttpClientMockHelper.GetClientMockForURLWithFileResponse(String.Format("{0}trials/{1}", BASE_URL, trialID), trialFilePath, HttpStatusCode.NotFound);
 
