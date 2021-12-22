@@ -24,7 +24,15 @@ jobs:
     - name: Restore NuGet Packages
       run: nuget restore clinical-trials-search-print.sln
       
-    - name: Build and Publish Web App
+    - name: Build
+      # TODO: Need a single target to build everything.
+      # run: msbuild clinical-trials-search-print.sln /p:TreatWarningsAsErrors=true /p:Configuration=Release
+      run: msbuild test\CancerGov.ClinicalTrialsAPI.Test\CancerGov.ClinicalTrialsAPI.Test.csproj /p:TreatWarningsAsErrors=true /p:Configuration=Release
+
+    - name: Run Unit Tests
+      run: msbuild test\RunUnitTests.targets /p:Configuration=Release
+
+    - name: Publish
       run: msbuild clinical-trials-search-print.sln /p:Configuration=Release /p:DeployOnBuild=true /p:PublishProfile=FolderProfile
 
     - name: Upload Artifact

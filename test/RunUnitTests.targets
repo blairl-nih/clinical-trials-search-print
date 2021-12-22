@@ -1,0 +1,22 @@
+<Project
+    DefaultTarget="Test"
+    xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <UsingTask
+    AssemblyFile="$(MSBuildThisFileDirectory)..\packages\xunit.runner.msbuild.2.4.1\build\net452\xunit.runner.msbuild.net452.dll"
+    TaskName="Xunit.Runner.MSBuild.xunit"/>
+
+  <ItemGroup>
+    <CurDir Include="." />
+    <TestAssemblies Include="**\bin\$(Configuration)\*.Test?.dll" />
+    
+  </ItemGroup>
+
+    <!--
+        TODO: Make this use the @(TestAssemblies) item to dynamically discover all the test assemblies.
+    -->
+
+  <Target Name="Test">
+    <xunit Assemblies="CancerGov.ClinicalTrialsAPI.Test\bin\Debug\CancerGov.ClinicalTrialsAPI.Test.dll" />
+  </Target>
+</Project>
