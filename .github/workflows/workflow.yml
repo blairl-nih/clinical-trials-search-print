@@ -22,7 +22,8 @@ jobs:
       uses: NuGet/setup-nuget@v1
 
     - name: Restore NuGet Packages
-      run: nuget restore clinical-trials-search-print.sln
+      #run: nuget restore clinical-trials-search-print.sln
+      run: msbuild -t:restore clinical-trials-search-print.sln
 
     - name: Build and Publish Web App
       run: msbuild clinical-trials-search-print.sln /p:Configuration=Release /p:DeployOnBuild=true /p:PublishProfile=FolderProfile
