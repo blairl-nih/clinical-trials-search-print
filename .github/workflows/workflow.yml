@@ -30,7 +30,7 @@ jobs:
       run: |
         echo %CD%
         msbuild test\CancerGov.ClinicalTrialsAPI.Test\CancerGov.ClinicalTrialsAPI.Test.csproj /p:TreatWarningsAsErrors=true /p:Configuration=Release
-        dir test\CancerGov.ClinicalTrialsAPI.Test\bin\Debug\
+        dir /s test\CancerGov.ClinicalTrialsAPI.Test
       shell: cmd
 
     - name: Run Unit Tests
