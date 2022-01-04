@@ -17,6 +17,6 @@
     -->
 
   <Target Name="Test">
-    <xunit Assemblies="CancerGov.ClinicalTrialsAPI.Test\bin\Debug\CancerGov.ClinicalTrialsAPI.Test.dll" />
+    <xunit Assemblies="CancerGov.ClinicalTrialsAPI.Test\bin\$(Configuration)\CancerGov.ClinicalTrialsAPI.Test.dll" />
   </Target>
 </Project>
