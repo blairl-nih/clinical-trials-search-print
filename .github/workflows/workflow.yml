@@ -28,7 +28,10 @@ jobs:
       # TODO: Need a single target to build everything.
       # run: msbuild clinical-trials-search-print.sln /p:TreatWarningsAsErrors=true /p:Configuration=Release
       run: |
-        msbuild test\CancerGov.ClinicalTrialsAPI.Test\CancerGov.ClinicalTrialsAPI.Test.csproj /p:TreatWarningsAsErrors=true /p:Configuration=Release
+        rem msbuild test\CancerGov.ClinicalTrialsAPI.Test\CancerGov.ClinicalTrialsAPI.Test.csproj /p:TreatWarningsAsErrors=true /p:Configuration=Release
+        for /r test %a in (*.csproj) do (
+          msbuild %%a /p:TreatWarningsAsErrors=true /p:Configuration=Release
+        )
         dir /s test\CancerGov.ClinicalTrialsAPI.Test\bin\Release\
       shell: cmd
 
@@ -36,7 +39,7 @@ jobs:
       run: msbuild test\RunUnitTests.targets /p:Configuration=Release
 
     - name: Publish
-      run: msbuild clinical-trials-search-print.sln /p:Configuration=Release /p:DeployOnBuild=true /p:PublishProfile=FolderProfile
+      run: msbuild clinical-trials-search-print.sln /p:TreatWarningsAsErrors=true /p:Configuration=Release /p:DeployOnBuild=true /p:PublishProfile=FolderProfile
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v1.0.0
