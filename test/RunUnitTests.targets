@@ -18,6 +18,6 @@
 
   <Target Name="Test">
     <xunit Assemblies="CancerGov.ClinicalTrialsAPI.Test\bin\$(Configuration)\CancerGov.ClinicalTrialsAPI.Test.dll" />
-    <Message Text="WHOMP! @(TestAssemblies)" />
+    <Message Text="WHOMP! $(TestAssemblies)" />
   </Target>
 </Project>
