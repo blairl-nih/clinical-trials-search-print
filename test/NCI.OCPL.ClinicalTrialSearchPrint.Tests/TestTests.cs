@@ -16,10 +16,5 @@ namespace NCI.OCPL.ClinicalTrialSearchPrint.Tests
             Assert.True(true);
         }
 
-        [Fact]
-        public void FailingTest()
-        {
-            Assert.False(true);
-        }
     }
 }
