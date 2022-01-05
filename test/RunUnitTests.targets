@@ -15,6 +15,6 @@
 
 
   <Target Name="Test">
-    <xunit Assemblies="@(TestAssemblies)" />
+    <xunit Assemblies="%(TestAssemblies.Identity)" />
   </Target>
 </Project>
