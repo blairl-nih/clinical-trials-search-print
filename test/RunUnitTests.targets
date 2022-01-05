@@ -15,6 +15,7 @@
 
 
   <Target Name="Test">
-    <xunit Assemblies="%(TestAssemblies.Identity)" />
+    <xunit Assemblies="@(TestAssemblies)" />
+    <exec command="dir *.test?.dll /s/b" />
   </Target>
 </Project>
