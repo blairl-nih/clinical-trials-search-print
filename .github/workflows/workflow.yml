@@ -25,14 +25,11 @@ jobs:
       run: nuget restore clinical-trials-search-print.sln
       
     - name: Build
-      # TODO: Need a single target to build everything.
-      # run: msbuild clinical-trials-search-print.sln /p:TreatWarningsAsErrors=true /p:Configuration=Release
       run: |
-        rem msbuild test\CancerGov.ClinicalTrialsAPI.Test\CancerGov.ClinicalTrialsAPI.Test.csproj /p:TreatWarningsAsErrors=true /p:Configuration=Release
+        REM Find and build all the unit test projects.
         for /r test %%a in (*.csproj) do (
           msbuild %%a /p:TreatWarningsAsErrors=true /p:Configuration=Release
         )
-        dir /s test\CancerGov.ClinicalTrialsAPI.Test\bin\Release\
       shell: cmd
 
     - name: Run Unit Tests
@@ -40,6 +37,14 @@ jobs:
 
     - name: Publish
       run: msbuild clinical-trials-search-print.sln /p:TreatWarningsAsErrors=true /p:Configuration=Release /p:DeployOnBuild=true /p:PublishProfile=FolderProfile
+
+    - name: Record metadata
+      env:
+        BUILD_INFO: ${{ toJson( needs.extract_build_info.outputs ) }}
+      run: |
+        echo "$BUILD_INFO"
+        echo "$BUILD_INFO" > $GITHUB_WORKSPACE/publish/build-info.json
+      shell: bash      
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v1.0.0
