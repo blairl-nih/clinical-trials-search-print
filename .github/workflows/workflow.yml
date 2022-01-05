@@ -29,9 +29,7 @@ jobs:
       # run: msbuild clinical-trials-search-print.sln /p:TreatWarningsAsErrors=true /p:Configuration=Release
       run: |
         rem msbuild test\CancerGov.ClinicalTrialsAPI.Test\CancerGov.ClinicalTrialsAPI.Test.csproj /p:TreatWarningsAsErrors=true /p:Configuration=Release
-        for /r test %a in (*.csproj) do (
-          msbuild %a /p:TreatWarningsAsErrors=true /p:Configuration=Release
-        )
+        for /r test %a in (*.csproj) do msbuild %a /p:TreatWarningsAsErrors=true /p:Configuration=Release
         dir /s test\CancerGov.ClinicalTrialsAPI.Test\bin\Release\
       shell: cmd
 
