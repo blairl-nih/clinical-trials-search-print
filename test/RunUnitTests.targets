@@ -19,5 +19,8 @@
   <Target Name="Test">
     <!-- <xunit Assemblies="CancerGov.ClinicalTrialsAPI.Test\bin\$(Configuration)\CancerGov.ClinicalTrialsAPI.Test.dll" /> -->
     <xunit Assemblies="@(TestAssemblies)" />
+    <Message Text="debug" />
+    <Message Text="%(TestAssemblies.Identity)" />
+    <Message Text="end debug" />
   </Target>
 </Project>

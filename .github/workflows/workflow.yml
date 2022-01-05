@@ -28,7 +28,6 @@ jobs:
       # TODO: Need a single target to build everything.
       # run: msbuild clinical-trials-search-print.sln /p:TreatWarningsAsErrors=true /p:Configuration=Release
       run: |
-        echo %CD%
         msbuild test\CancerGov.ClinicalTrialsAPI.Test\CancerGov.ClinicalTrialsAPI.Test.csproj /p:TreatWarningsAsErrors=true /p:Configuration=Release
         dir /s test\CancerGov.ClinicalTrialsAPI.Test\bin\Release\
       shell: cmd
