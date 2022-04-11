@@ -198,6 +198,7 @@ namespace NCI.OCPL.ClinicalTrialSearchPrint
 
                 RemoveNonRecruitingSites(trialDetails);
                 SetLocationStateNames(trialDetails);
+                trialDetails = EnforceTrialOrder(trialDetails, trialIDs);
 
                 // Get the path to the page template.
                 string template = ConfigurationManager.AppSettings["printTemplate"];
@@ -327,6 +328,41 @@ namespace NCI.OCPL.ClinicalTrialSearchPrint
                         site["org_state_or_province"] = StateNameHelper.GetStateName(code);
                 }
             }
+        }
+
+        /// <summary>
+        /// Reorders the trial details in a clinical trials API response to match the
+        /// order specified in the <c>trialIDs</c> list.
+        /// </summary>
+        /// <param name="trialData">The response object from a clinical trial search.</param>
+        /// <param name="trialIDs">An array of strings containing NCI IDs in the desired order.</param>
+        /// <returns></returns>
+        public JObject EnforceTrialOrder(JObject trialData, string[] trialIDs)
+        {
+            JArray trialList = (JArray)trialData["data"];
+            List<JToken> reorderedTrials = new List<JToken>();
+
+            Array.ForEach(trialIDs, id => {
+                IEnumerable<JToken> match = trialList.Where(trial => trial["nci_id"].Value<string>() == id);
+
+                // It shouldn't be possible to have anything other than exactly one match for a given
+                // trial ID. If something weird happens, we'll handle it gracefully, returning as much data
+                // as we have and logging the anomaly on the theory we'll look at it later.
+                if (match.Count() > 0)
+                {
+                    reorderedTrials.AddRange(match);
+                    if (match.Count() > 1)
+                        log.WarnFormat("Multiple matches for ID '{0}'.", id);
+                }
+                else
+                {
+                    log.WarnFormat("No match found for ID '{0}'.", id);
+                }
+            });
+
+            trialData["data"] = new JArray(reorderedTrials.ToArray());
+
+            return trialData;
         }
 
         /// <summary>
