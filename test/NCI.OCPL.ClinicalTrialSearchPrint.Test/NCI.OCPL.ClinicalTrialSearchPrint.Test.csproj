@@ -95,6 +95,7 @@
     <Compile Include="TestObjects\CTSPrintRequestHandler_GetFields_LinkTemplate_Present.cs" />
     <Compile Include="TestObjects\CTSPrintRequestHandler_GetFields_SearchCriteria_Null.cs" />
     <Compile Include="TestObjects\CTSPrintRequestHandler_GetFields_TrialIDs_Single.cs" />
+    <Compile Include="Tests\CTSPrintRequestHandler_EnforceTrialOrder.cs" />
     <Compile Include="Tests\CTSPrintRequestHandler_GetFields.cs" />
     <Compile Include="Tests\CTSPrintRequestHandler_RemoveNonRecruitingSites.cs" />
     <Compile Include="Tests\CTSPrintRequestHandler_SetLocationStateNames.cs" />
@@ -104,6 +105,12 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+    <None Include="TestData\TrialOrder\out-of-order-expected.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="TestData\TrialOrder\out-of-order-return.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\..\packages\xunit.analyzers.0.10.0\analyzers\dotnet\cs\xunit.analyzers.dll" />
