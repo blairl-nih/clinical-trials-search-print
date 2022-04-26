@@ -77,10 +77,14 @@
     <Compile Include="TestObjects\CTSPrintRequestHandler_GetFields_LinkTemplate_Null.cs" />
     <Compile Include="TestObjects\CTSPrintRequestHandler_GetFields_LinkTemplate_RelativePath.cs" />
     <Compile Include="TestObjects\CTSPrintRequestHandler_GetFields_LinkTemplate_AbsoluteUrl.cs" />
+    <Compile Include="TestObjects\CTSPrintRequestHandler_GetFields_LinkTemplate_InjectAttribute.cs" />
+    <Compile Include="TestObjects\CTSPrintRequestHandler_GetFields_LinkTemplate_InjectMarkup.cs" />
+    <Compile Include="TestObjects\CTSPrintRequestHandler_GetFields_NewSearchLink_InjectMarkup.cs" />
     <Compile Include="TestObjects\CTSPrintRequestHandler_GetFields_NewSearchLink_Null.cs" />
     <Compile Include="TestObjects\CTSPrintRequestHandler_GetFields_NewSearchLink_Empty.cs" />
     <Compile Include="TestObjects\CTSPrintRequestHandler_GetFields_NewSearchLink_Missing.cs" />
     <Compile Include="TestObjects\CTSPrintRequestHandler_GetFields_NewSearchLink_AbsoluteUrl.cs" />
+    <Compile Include="TestObjects\CTSPrintRequestHandler_GetFields_NewSearchLink_InjectAttribute.cs" />
     <Compile Include="TestObjects\CTSPrintRequestHandler_GetFields_NewSearchLink_RelativePath.cs" />
     <Compile Include="TestObjects\CTSPrintRequestHandler_GetFields_NewSearchLink_Present.cs" />
     <Compile Include="TestObjects\CTSPrintRequestHandler_GetFields_SearchCriteria_Missing.cs" />

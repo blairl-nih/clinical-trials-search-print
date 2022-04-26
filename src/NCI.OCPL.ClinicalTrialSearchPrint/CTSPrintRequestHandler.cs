@@ -4,6 +4,7 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 
@@ -24,6 +25,8 @@ namespace NCI.OCPL.ClinicalTrialSearchPrint
         public static string MISSING_FIELD_MESSAGE { get; } = "Field is empty or not found";
 
         public static string MUST_BE_RELATIVE_LINK_MESSAGE { get; } = "Must be an absolute path.";
+
+        public static string INVALID_CHARACTERS_MESSAGE { get; } = "Field contains invalid characters";
 
         static ILog log = LogManager.GetLogger(typeof(PrintCacheManager));
 
@@ -244,6 +247,13 @@ namespace NCI.OCPL.ClinicalTrialSearchPrint
         public (string[] TrialIDs, string LinkTemplate, string NewSearchLink, JObject SearchCriteria)
             GetFields(JObject requestBody)
         {
+            // Finder for characters not allowed in the new_search_link field.
+            Regex newLinkDisallowedCharacters = new Regex("[^a-zA-Z0-9-/.]+");
+
+            // Finder for characters not allowed in the link_template field.
+            // This is broader in order to allow URL encoded characters.
+            Regex linkTemplateDisallowedCharacters = new Regex("[^a-zA-Z0-9-/.&=?%]");
+
             string[] trialIDs;
             string linkTemplate;
             string newSearchLink = null;
@@ -268,6 +278,10 @@ namespace NCI.OCPL.ClinicalTrialSearchPrint
             if (!linkTemplate.StartsWith("/"))
                 throw new ArgumentException(MUST_BE_RELATIVE_LINK_MESSAGE, "link_template");
 
+            // Remove <TRIAL_ID> placeholder before checking for invalid characters.
+            if (linkTemplateDisallowedCharacters.IsMatch(linkTemplate.Replace("<TRIAL_ID>", string.Empty)))
+                throw new ArgumentException(INVALID_CHARACTERS_MESSAGE, "link_template");
+
             // Get new search link, or default if missing.
             field = requestBody["new_search_link"];
             if (field != null && !String.IsNullOrWhiteSpace(field.Value<string>()))
@@ -275,6 +289,9 @@ namespace NCI.OCPL.ClinicalTrialSearchPrint
                 newSearchLink = field.Value<string>().Trim();
                 if(!newSearchLink.StartsWith("/"))
                     throw new ArgumentException(MUST_BE_RELATIVE_LINK_MESSAGE, "new_search_link");
+
+                if (newLinkDisallowedCharacters.IsMatch(newSearchLink))
+                    throw new ArgumentException(INVALID_CHARACTERS_MESSAGE, "new_search_link");
             }
             else
             {

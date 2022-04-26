@@ -228,5 +228,31 @@ namespace NCI.OCPL.ClinicalTrialSearchPrint.Test
 
             Assert.Equal(data.ExpectedSearchCriteria, actual.SearchCriteria, new JTokenEqualityComparer());
         }
+
+        public static IEnumerable<object[]> FieldsWithDisallowedCharacters_Data = new[]
+        {
+            new object[] {new CTSPrintRequestHandler_GetFields_NewSearchLink_InjectAttribute()},
+            new object[] {new CTSPrintRequestHandler_GetFields_NewSearchLink_InjectMarkup()},
+            new object[] {new CTSPrintRequestHandler_GetFields_LinkTemplate_InjectAttribute()},
+            new object[] {new CTSPrintRequestHandler_GetFields_LinkTemplate_InjectMarkup()},
+        };
+
+        /// <summary>
+        /// Tests for fields containing disallowed characters. (e.g. Injection attacks.)
+        /// </summary>
+        /// <param name="data"></param>
+        [Theory]
+        [MemberData(nameof(FieldsWithDisallowedCharacters_Data))]
+        public static void FieldsWithDisallowedCharacters(CTSPrintRequestHandler_GetFields_Base data)
+        {
+            var handler = new CTSPrintRequestHandler();
+
+            ArgumentException ex = Assert.Throws<ArgumentException>(
+                () => handler.GetFields(data.RequestData)
+            );
+
+            Assert.Equal(data.ExpectedErrorFieldName, ex.ParamName);
+            Assert.StartsWith(CTSPrintRequestHandler.INVALID_CHARACTERS_MESSAGE, ex.Message);
+        }
     }
 }
