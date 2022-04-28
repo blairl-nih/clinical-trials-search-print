@@ -106,7 +106,8 @@ namespace NCI.OCPL.ClinicalTrialSearchPrint.Test
 
         public static IEnumerable<object[]> LinkTemplatePresent_Data = new[]
         {
-            new object[] {new CTSPrintRequestHandler_GetFields_LinkTemplate_Present() }
+            new object[] {new CTSPrintRequestHandler_GetFields_LinkTemplate_Present() },
+            new object[] {new CTSPrintRequestHandler_GetFields_LinkTemplate_AllowUnderscores() },
         };
 
         /// <summary>

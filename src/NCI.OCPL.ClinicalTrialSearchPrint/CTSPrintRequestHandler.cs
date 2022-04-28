@@ -252,7 +252,7 @@ namespace NCI.OCPL.ClinicalTrialSearchPrint
 
             // Finder for characters not allowed in the link_template field.
             // This is broader in order to allow URL encoded characters.
-            Regex linkTemplateDisallowedCharacters = new Regex("[^a-zA-Z0-9-/.&=?%]");
+            Regex linkTemplateDisallowedCharacters = new Regex("[^a-zA-Z0-9-/.&=?%_]+");
 
             string[] trialIDs;
             string linkTemplate;
