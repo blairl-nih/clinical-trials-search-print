@@ -75,6 +75,7 @@
   <ItemGroup>
     <Compile Include="TestObjects\CTSPrintRequestHandler_GetFields_Base.cs" />
     <Compile Include="TestObjects\CTSPrintRequestHandler_GetFields_LinkTemplate_Null.cs" />
+    <Compile Include="TestObjects\CTSPrintRequestHandler_GetFields_LinkTemplate_AllowUnderscores.cs" />
     <Compile Include="TestObjects\CTSPrintRequestHandler_GetFields_LinkTemplate_RelativePath.cs" />
     <Compile Include="TestObjects\CTSPrintRequestHandler_GetFields_LinkTemplate_AbsoluteUrl.cs" />
     <Compile Include="TestObjects\CTSPrintRequestHandler_GetFields_LinkTemplate_InjectAttribute.cs" />
