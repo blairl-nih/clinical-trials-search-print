@@ -120,7 +120,6 @@ namespace CancerGov.CTS.Print.DataManager
                     {
                         SqlFieldValueReader sqlFVReader = new SqlFieldValueReader(reader);
                         printPageHtml = sqlFVReader.GetString("content");
-                        printPageHtml = printPageHtml.Replace("${generatePrintURL}", printID.ToString());
                     }
                     else
                     {

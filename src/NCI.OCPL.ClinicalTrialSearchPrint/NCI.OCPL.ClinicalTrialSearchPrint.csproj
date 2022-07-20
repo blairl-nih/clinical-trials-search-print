@@ -101,6 +101,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="CTS.Print-js\BasicCTSPrintPage.js" />
+    <Content Include="CTS.Print-js\print-legacy.txt" />
     <Content Include="Global.asax" />
     <Content Include="index.htm" />
   </ItemGroup>
