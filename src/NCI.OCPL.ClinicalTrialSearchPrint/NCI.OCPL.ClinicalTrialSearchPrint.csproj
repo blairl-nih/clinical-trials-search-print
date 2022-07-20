@@ -102,6 +102,7 @@
   <ItemGroup>
     <Content Include="CTS.Print-js\BasicCTSPrintPage.js" />
     <Content Include="CTS.Print-js\print-legacy.txt" />
+    <Content Include="CTS.Print-styles\nci-logo-full.svg" />
     <Content Include="Global.asax" />
     <Content Include="index.htm" />
   </ItemGroup>
@@ -109,6 +110,8 @@
     <Content Include="CTS.Print-styles\BasicCTSPrintPage.css" />
     <Content Include="CTS.Print-styles\nvcg.css" />
     <Content Include="Web.config" />
+    <Content Include="CTS.Print-styles\Montserrat-700.ttf" />
+    <Content Include="CTS.Print-styles\Montserrat-700.woff" />
     <None Include="packages.config" />
     <Content Include="VelocityTemplates\PrintResults.vm" />
     <None Include="Web.Debug.config">
