@@ -219,6 +219,7 @@
 	 <link href="/CTS.Print-styles/nvcg.css" rel="stylesheet" />
 	 <link href="/CTS.Print-styles/BasicCTSPrintPage.css" rel="stylesheet" />
 	 <meta name="dcterms.subject" content="Clinical Trials Print Results Page" />
+     <meta name="Generator" content="CTS.Print" />
 </head>
 <body>
 	<div class="wa-data-element hide" data-prop3="/" data-prop6="Comprehensive Cancer Information" data-prop16="Comprehensive Cancer Information" data-prop25="01/01/1980" data-prop44="Clinical Trials" data-prop62="Clinical Trials: Print Results Page" data-evar44="Clinical Trials" data-evar62="Clinical Trials: Print Results Page" ></div>
@@ -230,7 +231,7 @@
 					<h1 id="ctPrintBodyHeading">Your Clinical Trials Search Results</h1>
 					<div id="bodyHeadingLinks">
 						<a id="printPage" href="javascript:window.print();">Print</a> |
-						<a id="ctl10_EmailResults" href="/CTS.Print/Display?printID=${generatePrintURL}" target="_blank">E-Mail These Results</a> |
+						<a id="ctl10_EmailResults" href="${generatePrintURL}" target="_blank">E-Mail These Results</a> |
 						<a id="newSearch" href="$PageData.NewSearchLink">New Search</a>
 					</div>
 				</div>
@@ -255,7 +256,9 @@
 	</div>
 
 ## NOTE: The "body" string is a multi-line template string. Be careful when editing it.
-    <script>
+##       A copy of this script exists in print-legacy.txt for use with pages generated
+##       prior to this version of CTS.Print.  It may be deleted 90 days after go-live.
+    <script id="print-script">
         const subject = "Clinical Trials from the National Cancer Institute's Website";
         const body = `Print-Friendly Clinical Trial Descriptions
 
