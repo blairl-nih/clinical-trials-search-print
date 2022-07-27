@@ -16,6 +16,8 @@ namespace CancerGov.CTS.Print.Rendering
     /// </summary>
     public class TrialVelocityTools
     {
+        const string PRIMARY_PURPOSE_OTHER_TEXT = "Not provided by clinicaltrials.gov";
+
         /// <summary>
         /// Get all Locations, but filtered by location parameters.
         /// NOTE: LocationTypes for Hospital and None will not be filtered, but will be sorted.
@@ -260,6 +262,10 @@ namespace CancerGov.CTS.Print.Rendering
                 purpose = char.ToString(purpose[0]).ToUpper() + purpose.Substring(1).ToLower();
                 purpose = purpose.Replace("_", " ");
             }
+
+            if (purpose.ToLower() == "other")
+                purpose = PRIMARY_PURPOSE_OTHER_TEXT;
+
             return purpose;
         }
 
