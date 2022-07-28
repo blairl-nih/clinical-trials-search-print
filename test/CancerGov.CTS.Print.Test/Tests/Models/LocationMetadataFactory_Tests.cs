@@ -211,7 +211,11 @@ namespace CancerGov.CTS.Print.Test.Models
 	                ""zipCoords"": { ""lat"": """", ""long"": """" },
 	                ""zipRadius"": ""100"",
 	                ""country"": ""United States"",
-	                ""states"": [""DC"",""IL"",""NC""],
+	                ""states"": [
+                      { ""abbr"": ""DC"", ""name"": ""District of Columbia"" },
+                      { ""abbr"": ""IL"", ""name"": ""Illinois"" },
+                      { ""abbr"": ""NC"", ""name"": ""North Carolina"" }
+                    ],
 	                ""city"": ""Washington"",
                     ""location"": ""search-location-country"",
                     ""vaOnly"": false
