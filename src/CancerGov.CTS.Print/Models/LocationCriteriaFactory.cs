@@ -109,8 +109,8 @@ namespace CancerGov.CTS.Print.Models
             {
                 states =
                     from JToken el in jstates
-                    where el.Type == JTokenType.String
-                    select el.Value<string>();
+                    where el.Type == JTokenType.Object
+                    select el["abbr"].Value<string>();
             }
 
             metadata.Country = country;

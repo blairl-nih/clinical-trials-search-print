@@ -377,7 +377,21 @@ namespace CancerGov.CTS.Print.Models.Tests
             {
                 location = "search-location-country",
                 country = "United States",
-                states = new List<string> { "MD", "IL", "DC" },
+                states = new[]
+                {
+                    new {
+                        abbr = "MD",
+                        name = "Maryland"
+                    },
+                    new {
+                        abbr = "IL",
+                        name = "Illinois"
+                    },
+                    new {
+                        abbr = "DC",
+                        name = "District of Columbia"
+                    }
+                },
                 city = "Washington",
                 zip = "20850"
             });
@@ -690,4 +704,4 @@ namespace CancerGov.CTS.Print.Models.Tests
         }
 
     }
-} 
+}
