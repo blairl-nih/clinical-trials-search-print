@@ -194,7 +194,7 @@ namespace NCI.OCPL.ClinicalTrialSearchPrint
             try
             {
                 IClinicalTrialsAPIClient apiClient = GetClinicalTrialsApiClient();
-                trialDetails = await apiClient.GetMultipleTrials(trialIDs, trialIDs.Length);
+                trialDetails = await apiClient.GetMultipleTrials(trialIDs);
             }
             catch (Exception ex)
             {
